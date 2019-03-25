@@ -13,7 +13,7 @@ class Register extends Component {
 
   static propTypes = {
     type: PropTypes.string,
-    handleSave: PropTypes.string
+    handleSave: PropTypes.func
   }
 
   componentWillMount() {
@@ -26,7 +26,7 @@ class Register extends Component {
 
   componentDidUpdate() {
     const type = this.props.type
-    if(type != this.state.type){
+    if(type !== this.state.type){
       let label = this.setLabel(type)
       this.setState({type, label, value: ''})
     }

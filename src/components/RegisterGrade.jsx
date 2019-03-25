@@ -12,7 +12,8 @@ class RegisterGrade extends Component {
     selectedCourse: null,
     grade: 0,
     coursesOptions: [],
-    unisOptions: []
+    unisOptions: [],
+    invalid: false
   }
 
   static propTypes = {
@@ -40,26 +41,21 @@ class RegisterGrade extends Component {
     this.setState({ unisOptions, coursesOptions })
   }
 
-  componentDidUpdate() {
-    // const { unis, courses } = this.props
-    // if (unis != this.state.unis || unis != this.state.courses) {
-    //   this.setState({ courses, unis })
-    // }
-  }
-
   onSave = () => {
-    
     const { selectedUni, selectedCourse, grade } = this.state
 
+    if(!selectedUni || !selectedCourse || !grade.length){
+      this.setState({invalid: true})
+      return
+    }
+
+    this.setState({
+      invalid: false,
+      selectedUni: null, 
+      selectedCourse: null, 
+      grade: 0
+    })
     this.props.handleSave(selectedUni, selectedCourse, grade)
-
-
-
-    // if(value.length){
-    //   this.setState({invalid:false, value:''}, () => this.props.handleSave(type, value))
-    // } else {
-    //   this.setState({invalid: true})
-    // }
   }
 
   handleChangeUni(value) {
@@ -78,9 +74,7 @@ class RegisterGrade extends Component {
   }
 
   render() {
-    
-    const { unis, courses, grade, options, selectedCourse, selectedUni, unisOptions, coursesOptions } = this.state
-    console.log("render", selectedUni)
+    const { grade, selectedCourse, selectedUni, unisOptions, coursesOptions, invalid } = this.state
     return (
       <div>
         <Label className="mt-2" for="uni">Universidade</Label>
@@ -102,11 +96,18 @@ class RegisterGrade extends Component {
           type="number"
           name="grade"
           id="grade"
-          grade={grade}
+          value={grade}
           onChange={this.handleChangeGrade}
         />
         <br />
         <Button outline color="success" onClick={this.onSave}>Salvar</Button>
+
+        {invalid && (
+          <div>
+          <p>Preencha todos os campos antes de salvar.</p>
+        </div>
+        )}
+        
       </div>
     )
   }
