@@ -25,49 +25,49 @@ class App extends Component {
   }
 
   getUnis = _ => {
-    fetch("https://still-sands-23370.herokuapp.com/unis/")
+    fetch("http://localhost:4000/unis/")
       .then(response => response.json())
       .then(response => this.setState({ unis: response.data }))
       .catch(err => console.error(err))
   }
 
   getCourses = _ => {
-    fetch("https://still-sands-23370.herokuapp.com/courses/")
+    fetch("http://localhost:4000/courses/")
       .then(response => response.json())
       .then(response => this.setState({ courses: response.data }))
       .catch(err => console.error(err))
   }
 
   getGrades = _ => {
-    fetch("https://still-sands-23370.herokuapp.com/grades/")
+    fetch("http://localhost:4000/grades/")
       .then(response => response.json())
       .then(response => this.setGradesState(response.data))
       .catch(err => console.error(err))
   }
 
   addUni = (name) => {
-    fetch(`https://still-sands-23370.herokuapp.com/unis/add?name=${name}`)
+    fetch(`http://localhost:4000/unis/add?name=${name}`)
       .then(response => response.json())
       .then(this.getUnis())
       .catch(err => console.error(err))
   }
 
   addCourse = (name) => {
-    fetch(`https://still-sands-23370.herokuapp.com/courses/add?name=${name}`)
+    fetch(`http://localhost:4000/courses/add?name=${name}`)
       .then(response => response.json())
       .then(this.getCourses())
       .catch(err => console.error(err))
   }
 
   addGrade = (uni_id, course_id, grade) => {
-    fetch(`https://still-sands-23370.herokuapp.com/grade/add?uni_id=${uni_id}&course_id=${course_id}&grade=${grade}`)
+    fetch(`http://localhost:4000/grade/add?uni_id=${uni_id}&course_id=${course_id}&grade=${grade}`)
       .then(response => response.json())
       .then(this.getGrades())
       .catch(err => console.error(err))
   }
 
   deleteGrade = (grade_id) => {
-    fetch(`https://still-sands-23370.herokuapp.com/grade/delete?grade_id=${grade_id}`)
+    fetch(`http://localhost:4000/grade/delete?grade_id=${grade_id}`)
       .then(response => response.json())
       .then(this.getGrades())
       .catch(err => console.error(err))
