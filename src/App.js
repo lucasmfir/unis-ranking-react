@@ -4,7 +4,6 @@ import './App.css';
 import Register from './components/Register';
 import RegisterGrade from './components/RegisterGrade';
 import Header from './components/Header';
-require('dotenv').config()
 
 class App extends Component {
 
@@ -22,42 +21,42 @@ class App extends Component {
   }
 
   getUnis = _ => {
-    fetch( (process.env.API_URL || "http://localhost:4000") + "/unis")
+    fetch("https://still-sands-23370.herokuapp.com/unis/")
       .then(response => response.json())
       .then(response => this.setState({ unis: response.data }))
       .catch(err => console.error(err))
   }
 
   getCourses = _ => {
-    fetch((process.env.API_URL || "http://localhost:4000") + "/courses")
+    fetch("https://still-sands-23370.herokuapp.com/courses/")
       .then(response => response.json())
       .then(response => this.setState({ courses: response.data }))
       .catch(err => console.error(err))
   }
 
   getGrades = _ => {
-    fetch((process.env.API_URL || "http://localhost:4000") + "/grades")
+    fetch("https://still-sands-23370.herokuapp.com/grades/")
       .then(response => response.json())
       .then(response => this.setState({ grades: response.data }))
       .catch(err => console.error(err))
   }
 
   addUni = (name) => {
-    fetch((process.env.API_URL || "http://localhost:4000") + "/unis/add?name=" + name)
+    fetch(`https://still-sands-23370.herokuapp.com/unis/add?name=${name}`)
       .then(response => response.json())
       .then(this.getUnis())
       .catch(err => console.error(err))
   }
 
   addCourse = (name) => {
-    fetch((process.env.API_URL || `http://localhost:4000`) + `/courses/add?name=${name}`)
+    fetch(`https://still-sands-23370.herokuapp.com/courses/add?name=${name}`)
       .then(response => response.json())
       .then(this.getCourses())
       .catch(err => console.error(err)) 
   }
 
   addGrade = (uni_id, course_id, grade) => {
-    fetch((process.env.API_URL ||`http://localhost:4000`) + `/grade/add?uni_id=${uni_id}&course_id=${course_id}&grade=${grade}`)
+    fetch(`https://still-sands-23370.herokuapp.com/grade/add?uni_id=${uni_id}&course_id=${course_id}&grade=${grade}`)
       .then(response => response.json())
       .then(this.getGrades())
       .catch(err => console.error(err)) 
